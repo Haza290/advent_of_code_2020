@@ -25,7 +25,9 @@ public class ExpenseReportTest {
 
         ExpenseReport expenseReport = new ExpenseReport();
         List<Integer> inputArray1 = Arrays.asList(1721, 979, 366, 299, 675, 1456);
+        List<Integer> inputArray2 = Arrays.asList(23, 1721, 979, 366, 299, 675, 1456);
         assertThat(expenseReport.solve(inputArray1, 3), is(equalTo(241861950)));
+        assertThat(expenseReport.solve(inputArray2, 3), is(equalTo(241861950)));
     }
 
     @Test
