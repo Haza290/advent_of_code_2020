@@ -1,4 +1,4 @@
-package uk.co.util;
+package uk.co.schneiderweb.util;
 
 import java.io.File;
 import java.io.IOException;

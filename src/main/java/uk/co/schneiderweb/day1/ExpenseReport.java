@@ -1,6 +1,6 @@
 package uk.co.schneiderweb.day1;
 
-import uk.co.util.ReadFile;
+import uk.co.schneiderweb.util.ReadFile;
 
 import java.util.List;
 import java.util.Optional;
