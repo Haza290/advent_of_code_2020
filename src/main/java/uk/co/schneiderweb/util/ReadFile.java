@@ -11,7 +11,14 @@ import java.util.stream.Collectors;
 public class ReadFile {
 
     public static List<Integer> readIntegerListFromFile(URL fileUrl) {
+        return Arrays.stream(readFile(fileUrl).split("\n")).map(s -> Integer.valueOf(s)).collect(Collectors.toList());
+    }
 
+    public static List<String> readStringListFromFile(URL fileUrl) {
+        return Arrays.asList(readFile(fileUrl).split("\n"));
+    }
+
+    private static String readFile(URL fileUrl) {
         File file = new File(fileUrl.getFile());
         String content = null;
         try {
@@ -19,6 +26,6 @@ public class ReadFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Arrays.stream(content.split("\n")).map(s -> Integer.valueOf(s)).collect(Collectors.toList());
+        return content;
     }
 }
