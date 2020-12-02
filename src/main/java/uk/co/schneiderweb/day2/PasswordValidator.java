@@ -7,19 +7,33 @@ import java.util.List;
 
 public class PasswordValidator {
 
+    enum ValidationType {
+        CHARACTER_FREQUENCY,
+        CHARACTER_POSITION
+    }
+
     public static void main(String[] args) {
         List<String> inputList = ReadFile.readStringListFromFile(PasswordValidator.class.getClassLoader().getResource("day2_input"));
-        int count = new PasswordValidator().countValidPasswords(inputList);
-        System.out.println("Count: " + count);
+        int characterFrequencyValidationCount = new PasswordValidator().countValidPasswords(inputList, ValidationType.CHARACTER_FREQUENCY);
+        int characterPositionValidationCount = new PasswordValidator().countValidPasswords(inputList, ValidationType.CHARACTER_POSITION);
+        System.out.println("characterFrequencyValidationCount: " + characterFrequencyValidationCount);
+        System.out.println("characterPositionValidationCount: " + characterPositionValidationCount);
     }
 
-    public int countValidPasswords(List<String> inputArray) {
-        return (int) inputArray.stream().map(PasswordComponents::new).filter(this::isValidPassword).count();
+    public int countValidPasswords(List<String> inputArray, ValidationType validationType) {
+        return (int) inputArray.stream().map(PasswordComponents::new).filter(p -> isValidPassword(p, validationType)).count();
     }
 
-    private boolean isValidPassword(PasswordComponents passwordComponents) {
-        long characterAppearances = passwordComponents.getPassword().chars().filter(c -> c == passwordComponents.getCharacter()).count();
-        return characterAppearances >= passwordComponents.getLower() && characterAppearances <= passwordComponents.getUpper();
+    private boolean isValidPassword(PasswordComponents passwordComponents, ValidationType validationType) {
+        switch (validationType) {
+            case CHARACTER_FREQUENCY:
+                long characterAppearances = passwordComponents.getPassword().chars().filter(c -> c == passwordComponents.getCharacter()).count();
+                return characterAppearances >= passwordComponents.getLower() && characterAppearances <= passwordComponents.getUpper();
+            case CHARACTER_POSITION:
+                return passwordComponents.getPassword().charAt(passwordComponents.getLower() - 1) == passwordComponents.character ^
+                        passwordComponents.getPassword().charAt(passwordComponents.getUpper() - 1) == passwordComponents.character;
+        }
+        return false;
     }
 
     @Getter
