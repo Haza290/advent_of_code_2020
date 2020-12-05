@@ -23,9 +23,7 @@ public class BatchPassportReader {
 
         return Arrays.stream(content
                 .split("\n\n"))
-                .map(s -> Arrays
-                        .stream(s.split("\n| "))
-                        .map(fields -> fields.substring(0, fields.indexOf(":")))
+                .map(s -> Arrays.stream(s.split("\n| "))
                         .collect(toCollection(ArrayList::new)))
                 .collect(toCollection(ArrayList::new));
     }
