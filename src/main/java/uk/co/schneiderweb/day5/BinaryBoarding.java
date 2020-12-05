@@ -1,10 +1,12 @@
 package uk.co.schneiderweb.day5;
 
+import com.google.common.collect.Sets;
 import uk.co.schneiderweb.util.ReadFile;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,7 +15,16 @@ public class BinaryBoarding {
     public static void main(String[] args) {
         List<String> inputStringList = ReadFile.readStringListFromFile(BinaryBoarding.class.getClassLoader().getResource("day5_input"));
         BinaryBoarding binaryBoarding = new BinaryBoarding();
-        System.out.println(inputStringList.stream().map(binaryBoarding::getSeatId).max(Integer::compare).get());
+
+        Set<Integer> allSeatsBar1 = inputStringList.stream().map(binaryBoarding::getSeatId).collect(Collectors.toSet());
+        int max = allSeatsBar1.stream().max(Integer::compare).get();
+        int min = allSeatsBar1.stream().min(Integer::compare).get();
+
+        Set<Integer> allSeats = IntStream.rangeClosed(min, max).boxed().collect(Collectors.toSet());
+
+        Sets.SetView<Integer> differnece = Sets.difference(allSeats, allSeatsBar1);
+        Integer mySeat = differnece.iterator().next();
+        System.out.println("My seat: " + mySeat);
 
     }
 
