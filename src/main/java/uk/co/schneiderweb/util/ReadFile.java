@@ -21,7 +21,7 @@ public class ReadFile {
         return Arrays.asList(readFile(fileUrl).split("\n"));
     }
 
-    public static List<String> readStringSplitFileOnBlankLines(URL fileUrl) {
+    public static List<String> readStringSplitFileOnBlankLinesRemovingNewlines(URL fileUrl) {
         String content = readFile(fileUrl);
 
         return Arrays.stream(content
@@ -29,6 +29,14 @@ public class ReadFile {
                 .map(s -> s.replace("\n", ""))
                 .collect(toCollection(ArrayList::new));
     }
+
+    public static List<List<String>> readStringSplitFileOnBlankLinesAndNewlines(URL fileUrl) {
+        String content = readFile(fileUrl);
+
+        return Arrays.stream(content.split("\n\n")).collect(toCollection(ArrayList::new)).stream().map(s -> Arrays.asList(s.split("\n"))).collect(Collectors.toList());
+    }
+
+
 
     private static String readFile(URL fileUrl) {
         File file = new File(fileUrl.getFile());
