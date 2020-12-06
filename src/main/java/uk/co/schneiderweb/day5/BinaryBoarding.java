@@ -3,8 +3,6 @@ package uk.co.schneiderweb.day5;
 import com.google.common.collect.Sets;
 import uk.co.schneiderweb.util.ReadFile;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
